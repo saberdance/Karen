@@ -14,7 +14,7 @@ namespace DatavAPI
     {
         public static void Main(string[] args)
         {
-            Backend.Instance.Init("CoT_Datav", new TimeSpan(0, 0, 0, 5000));
+            Backend.Instance.Init("CoT_Datav", new TimeSpan(0, 0, 0, 5));
             Backend.Instance.Simulator().Start();
             CreateHostBuilder(args).Build().Run();
         }

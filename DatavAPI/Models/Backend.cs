@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatavSimulator;
+using tsubasa;
 
 namespace DatavAPI.Models
 {
@@ -51,6 +52,7 @@ namespace DatavAPI.Models
             {
                 return false;
             }
+            Logger.Log("[DatavAPI]Backend初始化");
             _context = new DatavContext();
             _controller = new DatavController(_context);
             _simulator = new DatavSimulator.DatavSimulator(name, stepInterval, _controller);
