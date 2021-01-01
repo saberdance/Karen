@@ -1,0 +1,3 @@
+[submodule "tsubasa"]
+	path = tsubasa
+	url = https://github.com/saberdance/tsubasa

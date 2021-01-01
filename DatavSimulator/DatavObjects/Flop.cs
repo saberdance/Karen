@@ -48,9 +48,20 @@ namespace DatavSimulator.DatavObjects
             return StartNumber == startNumber && Variation == variation && ChangeInterval == changeInterval;
         }
 
-        public bool Update()
+        public bool Same(IDatavObj obj)
         {
-            if (Enabled && (DateTime.Now - LastUpdate).TotalMilliseconds >=ChangeInterval) {
+            if (obj is not Flop)
+            {
+                return false;
+            }
+            Flop flop = obj as Flop;
+            return StartNumber == flop.StartNumber && Variation == flop.Variation && ChangeInterval == flop.ChangeInterval;
+        }
+
+        public bool Step()
+        {
+            if (Enabled && (DateTime.Now - LastUpdate).TotalMilliseconds >=ChangeInterval) 
+            {
                 CurrentNumber += ChangeInterval;
                 LastUpdate = DateTime.Now;
             }
@@ -63,7 +74,6 @@ namespace DatavSimulator.DatavObjects
             LastUpdate = DateTime.Now;
             return true;
         }
-
         
     }
 }

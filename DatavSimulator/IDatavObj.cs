@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace DatavSimulator
 {
-    interface IDatavObj
+    public interface IDatavObj
     {
         public bool Reset();
         public void Enable(bool enable);
         public string Name();
-        public bool Update();
+        public bool Step();
+        public bool Same(IDatavObj obj);
     }
 }
