@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 //using Microsoft.EntityFrameworkCore;
 using DatavSimulator.DatavObjects;
+using tsubasa;
 
 namespace DatavSimulator
 {
@@ -25,12 +26,12 @@ namespace DatavSimulator
         //[Timestamp]
         public byte[] UpdateTime { get; set; }
         //持有的翻牌器控件
-        List<Flop> Flops { get; set; }
+        public List<Flop> Flops = new List<Flop>();
 
         public Datav(string name)
         {
             Name = name;
-            Status = Constants.Status.stopped;
+            Status = Constants.Status.running;
             CreateTime = DateTime.Now;
             Enable = true;
         }
@@ -98,7 +99,10 @@ namespace DatavSimulator
         public bool Step()
         {
             if (Status == Constants.Status.running)
+            {
+                Logger.Log($"[Datav:{Name}]步进");
                 Flops.ForEach((s) => { s.Step(); });
+            }
             return true;
         }
 
@@ -110,6 +114,19 @@ namespace DatavSimulator
                     return UpdateFlop(obj);
                 default:
                     return false;
+            }
+        }
+
+        public Flop GetFlop(string flopName)
+        {
+            var existFlops = Flops.Where(p => p.Name() == flopName);
+            if (existFlops.Any())
+            {
+                return existFlops.First();
+            }
+            else
+            {
+                return null;
             }
         }
 

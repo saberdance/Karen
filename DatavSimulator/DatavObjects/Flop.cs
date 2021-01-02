@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DatavSimulator;
+using tsubasa;
 
 namespace DatavSimulator.DatavObjects
 {
@@ -23,15 +24,15 @@ namespace DatavSimulator.DatavObjects
             Enabled = true;
         }
 
-        string Id { get; set; }
-        string FlopName { get; set; }
-        string DatavName { get; set; }
-        int StartNumber { get; set; }
-        int CurrentNumber { get; set; }
-        int Variation { get; set; }
-        int ChangeInterval { get; set; }
-        DateTime LastUpdate { get; set; }
-        bool Enabled { get; set; }
+        public string Id { get; set; }
+        public string FlopName { get; set; }
+        public string DatavName { get; set; }
+        public int StartNumber { get; set; }
+        public int CurrentNumber { get; set; }
+        public int Variation { get; set; }
+        public int ChangeInterval { get; set; }
+        public DateTime LastUpdate { get; set; }
+        public bool Enabled { get; set; }
 
         public string Name()
         {
@@ -62,7 +63,8 @@ namespace DatavSimulator.DatavObjects
         {
             if (Enabled && (DateTime.Now - LastUpdate).TotalMilliseconds >=ChangeInterval) 
             {
-                CurrentNumber += ChangeInterval;
+                Logger.Log($"[Flop:{FlopName}]步进");
+                CurrentNumber += Variation;
                 LastUpdate = DateTime.Now;
             }
             return true;

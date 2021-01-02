@@ -24,7 +24,7 @@ namespace DatavAPI.Controllers
 
         // GET api/<DatavObjectController>/5
         [HttpGet("updateflop")]
-        public string Get(string datavName, string flopName, int startNumber, int variation, int changeInterval)
+        public ActionResult<List<FlopReturnValue>> Get(string datavName, string flopName, int startNumber, int variation, int changeInterval)
         {
             Flop flop = new Flop(flopName, datavName, startNumber, startNumber, variation, changeInterval);
             Flop existFlop = Backend.Instance.Controller().GetFlop(datavName, flopName);
@@ -49,7 +49,9 @@ namespace DatavAPI.Controllers
                     ret.value = startNumber;
                 }
             }
-            return ret.toJsonString();
+            List<FlopReturnValue> retlist = new List<FlopReturnValue>();
+            retlist.Add(ret);
+            return retlist;
         }
 
         // POST api/<DatavObjectController>

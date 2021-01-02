@@ -58,6 +58,7 @@ namespace DatavSimulator
             {
                 return;
             }
+            Logger.Log("Simulator启动");
             StopSignal = false;
             StepTask = new Task(DoStep);
             StepTask.Start();
@@ -72,6 +73,7 @@ namespace DatavSimulator
                 Logger.Log("-------------------DataV步进结束-------------------");
                 Thread.Sleep(UpdateInterval);
             }
+            Logger.Log("Simulator停止");
             StepTask = null;
         }
 

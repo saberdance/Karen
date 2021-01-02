@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatavSimulator.DatavObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -131,6 +132,16 @@ namespace DatavSimulator
                 return false;
             }
             return datav.UpdateObj(datavObj);
+        }
+
+        public Flop GetFlop(string datavName, string flopName)
+        {
+            var datav = GetDatav(datavName);
+            if (datav.IsEmpty())
+            {
+                return null;
+            }
+            return datav.GetFlop(flopName);
         }
 
         #endregion
