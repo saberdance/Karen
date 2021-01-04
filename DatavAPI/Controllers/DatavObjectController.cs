@@ -15,16 +15,9 @@ namespace DatavAPI.Controllers
     [ApiController]
     public class DatavObjectController : ControllerBase
     {
-        // GET: api/<DatavObjectController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/<DatavObjectController>/5
         [HttpGet("updateflop")]
-        public ActionResult<List<FlopReturnValue>> Get(string datavName, string flopName, int startNumber, int variation, int changeInterval)
+        public ActionResult<List<FlopReturnValue>> UpdateFlop(string datavName, string flopName, int startNumber, int variation, int changeInterval)
         {
             Flop flop = new Flop(flopName, datavName, startNumber, startNumber, variation, changeInterval);
             Flop existFlop = Backend.Instance.Controller().GetFlop(datavName, flopName);
@@ -52,6 +45,18 @@ namespace DatavAPI.Controllers
             List<FlopReturnValue> retlist = new List<FlopReturnValue>();
             retlist.Add(ret);
             return retlist;
+        }
+
+        // GET api/<DatavObjectController>/5
+        [HttpGet("getFlops")]
+        public ActionResult<List<Flop>> GetFlops(string datavName)
+        {
+            Datav datav = Backend.Instance.Controller().GetDatav(datavName);
+            if (datav.IsEmpty())
+            {
+                return BadRequest();
+            }
+            return datav.GetFlops();
         }
 
         // POST api/<DatavObjectController>

@@ -33,6 +33,18 @@ namespace DatavAPI.Controllers
             return datav;
         }
 
+        // GET api/<DatavListController>/5
+        [HttpGet("{name}/flops")]
+        public ActionResult<Datav> GetFlops(string name)
+        {
+            var datav = Backend.Instance.Controller().GetDatav(name);
+            if (datav.IsEmpty())
+            {
+                return NotFound();
+            }
+            return datav;
+        }
+
         // POST api/<DatavListController>
         [HttpPost]
         public ActionResult Post(string name)
@@ -40,16 +52,43 @@ namespace DatavAPI.Controllers
             return Backend.Instance.Controller().NewDatav(name) ? Ok() : BadRequest();
         }
 
-        // PUT api/<DatavListController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // POST api/<DatavListController>
+        [HttpPost("{name}/stop")]
+        public ActionResult StopDatav(string name)
         {
+            bool succ = Backend.Instance.Controller().Stop(name);
+            return succ ? Ok() : BadRequest();
+        }
+
+        // POST api/<DatavListController>
+        [HttpPost("{name}/start")]
+        public ActionResult StartDatav(string name)
+        {
+            bool succ = Backend.Instance.Controller().Start(name);
+            return succ ? Ok() : BadRequest();
+        }
+
+        // POST api/<DatavListController>
+        [HttpPost("{name}/pause")]
+        public ActionResult PauseDatav(string name)
+        {
+            bool succ = Backend.Instance.Controller().Pause(name);
+            return succ ? Ok() : BadRequest();
+        }
+
+        // POST api/<DatavListController>
+        [HttpPost("{name}/reset")]
+        public ActionResult ResetDatav(string name)
+        {
+            bool succ = Backend.Instance.Controller().Reset(name);
+            return succ ? Ok() : BadRequest();
         }
 
         // DELETE api/<DatavListController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{name}")]
         public void Delete(int id)
         {
+
         }
     }
 }

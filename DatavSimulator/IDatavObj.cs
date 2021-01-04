@@ -13,5 +13,6 @@ namespace DatavSimulator
         public string Name();
         public bool Step();
         public bool Same(IDatavObj obj);
+        public string ToString();
     }
 }

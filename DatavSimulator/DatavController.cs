@@ -90,6 +90,36 @@ namespace DatavSimulator
             return datav.Stop();
         }
 
+        public bool Start(string name)
+        {
+            var datav = GetDatav(name);
+            if (datav.IsEmpty())
+            {
+                return false;
+            }
+            return datav.Start();
+        }
+
+        public bool Pause(string name)
+        {
+            var datav = GetDatav(name);
+            if (datav.IsEmpty())
+            {
+                return false;
+            }
+            return datav.Pause();
+        }
+
+        public bool Reset(string name)
+        {
+            var datav = GetDatav(name);
+            if (datav.IsEmpty())
+            {
+                return false;
+            }
+            return datav.ResetObjects();
+        }
+
         public bool StopAll()
         {
             var datavs = _context.Datavs.Where(p => (p.Status == Constants.Status.running)||p.Status == Constants.Status.paused);

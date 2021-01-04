@@ -55,6 +55,7 @@ namespace DatavSimulator
                 case Constants.Status.stopped:
                 case Constants.Status.paused:
                     //DatavObjects.ForEach((s) => { s.Start(); });
+                    Logger.Log($"[Datav][{Name}]启动");
                     Status = Constants.Status.running;
                     return true;
                 case Constants.Status.deleted:
@@ -70,6 +71,7 @@ namespace DatavSimulator
                 case Constants.Status.running:
                     //Flops.ForEach((s) => { s.Pause(); });
                     Status = Constants.Status.paused;
+                    Logger.Log($"[Datav][{Name}]暂停");
                     return true;
                 case Constants.Status.paused:
                     return true;
@@ -87,6 +89,7 @@ namespace DatavSimulator
                 case Constants.Status.running:
                 case Constants.Status.paused:
                     Status = Constants.Status.stopped;
+                    Logger.Log($"[Datav][{Name}]停止");
                     return true;
                 case Constants.Status.stopped:
                     return true;
@@ -100,7 +103,7 @@ namespace DatavSimulator
         {
             if (Status == Constants.Status.running)
             {
-                Logger.Log($"[Datav:{Name}]步进");
+                //Logger.Log($"[Datav:{Name}]步进");
                 Flops.ForEach((s) => { s.Step(); });
             }
             return true;
@@ -130,6 +133,17 @@ namespace DatavSimulator
             }
         }
 
+        public List<Flop> GetFlops()
+        {
+            return Flops;
+        }
+
+        public bool ResetObjects()
+        {
+            Flops.ForEach((s) => { s.Reset(); });
+            return true;
+        }
+
         private bool UpdateFlop(IDatavObj obj)
         {
             Flop flop = obj as Flop;
@@ -143,6 +157,9 @@ namespace DatavSimulator
                 }
                 else
                 {
+                    Logger.Log($"[Datav][{Name}]更新翻牌器:");
+                    Logger.Log(flop.ToString());
+                    Logger.Log($"[Datav][{Name}]--------------");
                     Flops.Remove(existFlop);
                     Flops.Add(flop);
                     return true;
@@ -183,6 +200,9 @@ namespace DatavSimulator
             }
             else
             {
+                Logger.Log($"[Datav][{Name}]创建翻牌器:");
+                Logger.Log(flop.ToString());
+                Logger.Log($"[Datav][{Name}]--------------");
                 Flops.Add(flop);
                 return true;
             }

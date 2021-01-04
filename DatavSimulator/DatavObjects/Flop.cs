@@ -39,6 +39,11 @@ namespace DatavSimulator.DatavObjects
             return FlopName;
         }
 
+        public override string ToString()
+        {
+            return $"Id:{Id}\nFlopName:{FlopName}\nDatavName:{DatavName}\nStartNumber:{StartNumber}\nCurrentNumber:{CurrentNumber}\nVariation:{Variation}\nChangeInterval:{ChangeInterval}\nEnabled:{Enabled}\n";
+        }
+
         public void Enable(bool enable)
         {
             Enabled = enable;
