@@ -68,7 +68,7 @@ namespace DatavSimulator.DatavObjects
         {
             if (Enabled && (DateTime.Now - LastUpdate).TotalMilliseconds >=ChangeInterval) 
             {
-                Logger.Log($"[Flop:{FlopName}]步进");
+                //Logger.Log($"[Flop:{FlopName}]步进");
                 CurrentNumber += Variation;
                 LastUpdate = DateTime.Now;
             }
@@ -79,6 +79,7 @@ namespace DatavSimulator.DatavObjects
         {
             CurrentNumber = StartNumber;
             LastUpdate = DateTime.Now;
+            Logger.Log($"[Flop:{FlopName}]重置");
             return true;
         }
         

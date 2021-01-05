@@ -68,9 +68,9 @@ namespace DatavSimulator
         {
             while (StopSignal == false)
             {
-                Logger.Log("---------------------DataV步进---------------------");
+                //Logger.Log("---------------------DataV步进---------------------");
                 _controller.StepAll();
-                Logger.Log("-------------------DataV步进结束-------------------");
+                //Logger.Log("-------------------DataV步进结束-------------------");
                 Thread.Sleep(UpdateInterval);
             }
             Logger.Log("Simulator停止");
